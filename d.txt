@@ -1,0 +1,59 @@
+//area table
+
+CREATE TABLE area (
+	area_id serial PRIMARY KEY,
+	area_name VARCHAR ( 150 ) NOT NULL
+);
+
+INSERT INTO
+    area(area_name)
+VALUES
+('Maharashtra'),
+('Odisha'),
+('Karnatak'),
+('Uttrakhand'),
+('Rajasthan');
+
+
+// position table
+CREATE TABLE position (
+	position_id serial PRIMARY KEY,
+	area_id INT NOT NULL,
+	position_name VARCHAR ( 150 ) NOT NULL
+);
+
+INSERT INTO
+    position(area_id,position_name)
+VALUES
+(1, 'Kolapur'),
+(2, 'Pune'),
+(1, 'Nagpur'),
+(1, 'Solapur'),
+(1, 'Thane'),
+(1, 'Satara'),
+(2, 'Bhubneshwar'),
+(2, 'Sambalpur'),
+(3, 'Bengaluru'),
+(3, 'Raichur'),
+(3, 'Bhadravati'),
+(3, 'kolar'),
+(4, 'Haridwar'),
+(4, 'Rishikesh'),
+(4, 'Rudrapur'),
+(4, 'Badrinath'),
+(4, 'Kedarnath'),
+(5, 'Jaipur '),
+(5, 'Udaipur'),
+(5, 'Kumbhalgarh'),
+(5, 'Bikaner');
+
+
+connection string - app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/car'
+
+brandid = areaid
+modelid = positionid
+carbrands = area
+car_brands = area_name
+carmodels = position
+car_models = position_name
+ 

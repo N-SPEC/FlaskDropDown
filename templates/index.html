@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dependent Dropdown with Search Box using Python Flask jQuery Ajax and PostgreSQL Database</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css" />
+</head>
+<body>
+<div class="container">
+    <h1 align="center">Dependent Dropdown with Search Box using Python Flask jQuery Ajax and PostgreSQL Database</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Select Area</label>
+            <select name="area_name" data-live-search="true" id="area_name" class="form-control" title="Select Area Area">
+                {% for row in area %}
+                <option value="{{row.area_id}}">{{row.area_name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label>Select position</label>
+            <select name="position_name" data-live-search="true" id="position_name" class="form-control" title="Select Area Position"> </select>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#area_name").selectpicker();
+        $("#position_name").selectpicker();
+
+        function load_data(category_id) {
+            debugger
+            $.ajax({
+                url: "/area_position",
+                method: "POST",
+                data: { category_id: category_id },
+                dataType: "json",
+                success: function (data) {
+                    var html = "";
+                    for (var count = 0; count < data.length; count++) {
+                        html += '<option value="' + data[count].id + '">' + data[count].name + "</option>";
+                    }                  
+                  
+                        $("#position_name").html(html);
+                        $("#position_name").selectpicker("refresh");
+                },
+            });
+        }
+
+        $(document).on("change", "#area_name", function () {            
+            var category_id = $('#area_name').val();
+            load_data(category_id);
+        });
+    });
+</script>
+</body>
+</html>
